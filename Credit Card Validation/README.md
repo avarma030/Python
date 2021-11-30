@@ -1,1 +1,1 @@
-Test any credit card number to check if it is a credit card number or not.
+Check any credit card number to test if it is Valid or Invalid.
