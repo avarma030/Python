@@ -1,57 +1,55 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Nov 20 15:09:42 2021
-
-@author: avarm
+@author: avarma030
 """
 
-card=input('Please enter your card number:\n >>>')
-#print(card)
+# Take the credit card number
+card_number = input('PLEASE ENTER YOUR CREDIT CARD NUMBER:\n >>>')
+temp = card_number.split()
 
-if len(card)==16:
-    required_digits=card[-2::-2]
-    required_digits=list(required_digits)
+
+# Check if the card number is 16 digits long
+
+while len(card_number)!=16:
+    card_number = input('THE CREDIT CARD NUMBER SHOULD BE 16 DIGITS LONG.\
+                        \nPLEASE ENTER YOUR CREDIT CARD NUMBER AGAIN:\n >>>')
     
-    a=[]
-    for i in range(len(required_digits)):
-        mul_2=2*int(required_digits[i])
-        a.append(mul_2)
-    #print(a)
     
-    a_str = ''.join([str(elem) for elem in a])
-    #print(a_str)
+# Check that credit card number does not contain any alphabets
+
+for temp in card_number:
+    if any(char.isalpha() for char in temp):
+        card_number = input('THE CREDIT CARD NUMBER CAN NOT CONTAIN ALPHABETS.\
+                            \nPLEASE ENTER YOUR CREDIT CARD NUMBER AGAIN:\n >>>')
     
-    required_digits_list=[]
-    for i in a_str:
-        required_digits_list.append(int(i))
-    #print(required_digits_list)
     
-    remaining_digits=card[::-2]
-    #print(remaining_digits)
+# Applying Luhn's Algorithm
+#1. Take every alternate digit starting from penultimate position and multipy it by 2
+
+if len(card_number)==16:
+    required_digits = [2*(int(i)) for i in card_number[-2::-2]]
     
-    remaining_digits_list=[]
-    for i in remaining_digits:
-        p=int(i)
-        remaining_digits_list.append(p)
-    #print(remaining_digits_list)
     
-    total_required=sum(required_digits_list)
-    #print(total)
-    total_remaining=sum(remaining_digits_list)
-    #print(total_1)
-    final=total_required+total_remaining
-    #print(final)
+#2. Calculate sum of all indivisual digits
+
+required_digits_str = ''.join([str(elem) for elem in required_digits])
+total_1 = sum([int(i) for i in required_digits_str])
     
-    if final%10==0:
-        print('It is a valid credit card!')
-    else:
-        print('Sorry! Your credit card number is invalid. Please enter a valid card number')
+#3. Calculate sum of every alternate digit starting from last position
+
+remaining_digits = [int(i) for i in card_number[::-2]]
+total_2 = sum(remaining_digits)
+
+
+#4. Add both the totals
+
+total = total_1+total_2
+
+
+#5. If the total is divisible by 10, card is valid!!!
+
+if total%10 == 0:
+    print('YOUR CREDIT CARD IS VALID!')
 else:
-    print('Please make sure you have enetred a valid 16 digit card number')
-    
-
-
-    
-    
-
-    
+    print('SORRY, YOUR CREDIT CARD IS INVALID.')
+        
