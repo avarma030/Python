@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""
+@author: avarma030
+"""
+
 # importing Libraries
 
 import random
@@ -5,52 +10,57 @@ import string
 from tkinter import *
 import pyperclip
 
+
 # initialize window
 
-root = Tk()
-root.geometry("400x400")
-root.resizable(0, 0)
-root.title("Password Generator")
-root.configure(background='teal')
+gui = Tk()
+gui.geometry("400x400")
+gui.resizable(0, 0)
+gui.title("Password Generator")
+gui.configure(background = 'teal')
 
-# heading
-heading = Label(root,background='teal', text='PASSWORD GENERATOR', font='calibri 15 bold').pack()
-Label(root, text='avarma030', font='arial 10').pack(side=BOTTOM)
+
+# heading for GUI
+
+heading = Label(gui, background = 'teal', text = 'RANDOM PASSWORD GENERATOR', font = 'calibri 15 bold').pack()
+Label(gui, text = 'avarma030', font = 'arial 10').pack(side=BOTTOM)
+
 
 # select password length
-pass_label = Label(root,background='teal', text='Select Password Length', font='arial 11 bold').pack()
-pass_len = IntVar()
-length = Spinbox(root, from_=6, to_=32, textvariable=pass_len, width=15).pack()
 
-# define function
+pass_label = Label(gui, background = 'teal', text = 'Select Password Length', font = 'arial 11 bold').pack()
+pass_len = IntVar()
+length = Spinbox(gui, from_ = 6, to_ = 32, textvariable = pass_len, width = 15).pack()
+
+
+# define password generator
 
 pass_str = StringVar()
 
-def Generator():
+def pass_generator():
     password = ''
     for x in range(0, 4):
-        password = random.choice(string.ascii_uppercase) + random.choice(string.ascii_lowercase) + random.choice(
-            string.digits) + random.choice(string.punctuation)
+        password = random.choice(string.ascii_uppercase) + random.choice(string.ascii_lowercase) \
+                   + random.choice(string.digits) + random.choice(string.punctuation)
     for y in range(pass_len.get() - 4):
-        password = password + random.choice(
-            string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
+        password = password + random.choice \
+                   (string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
     pass_str.set(password)
 
 
-# button
+# creating the button
 
-Button(root, text="Generate Password", command=Generator).pack(pady=5)
+Button(gui, text="Generate Password", command=pass_generator).pack(pady=5)
+Entry(gui, textvariable=pass_str, width=20).pack()
 
-Entry(root, textvariable=pass_str, width=20).pack()
 
-
-# function to copy
+# function for copying password
 
 def Copy_password():
     pyperclip.copy(pass_str.get())
 
+Button(gui, text='COPY TO CLIPBOARD', command=Copy_password).pack(pady=5)
 
-Button(root, text='COPY TO CLIPBOARD', command=Copy_password).pack(pady=5)
 
 # loop to run program
-root.mainloop()
+gui.mainloop()
