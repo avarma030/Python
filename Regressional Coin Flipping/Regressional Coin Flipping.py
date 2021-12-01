@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Nov 20 17:36:55 2021
-
-@author: avarm
+@author: avarm030
 """
 
-coins=input('Enter the number of coins:\n >>>')
+# Take the required number of coins
+
+coins = input('Enter the number of coins:\n >>>')
 coins_list=[]
 
 
+# loop to make N+=1
+
 i=0
 while i<int(coins):
-    #print('H')
     coins_list.append('H')
     i+=1
-#print(coins_list)
-#print(len(coins_list))
-
+# loop to flip every N'th coin
 q=0
 while q in range(len(coins_list)-1):
     p=1+q
@@ -28,20 +27,12 @@ while q in range(len(coins_list)-1):
             coins_list[p]='H'
         p+=2+q
     q+=1
-#print(coins_list)
 
-heads=[]
-tails=[]
-for char in coins_list:
-    if char=='H':
-        heads.append(char)
-    elif char=='T':
-        tails.append('T')
-        
-# for c,i in enumerate(coins_list):
-#     if i=='H':
-#         print(c, i)
-       
-print(f'For {coins} coins, there are {len(heads)} heads and {len(tails)} tails in the end')
     
+# count the total occurences of H and T and print them
+
+heads_count = [char for char in coins_list if char == 'H']
+tails_count = [char for char in coins_list if char == 'T']
+       
+print(f'For {coins} coins, there are {len(heads_count)} heads and {len(tails_count)} tails in the end')
 
